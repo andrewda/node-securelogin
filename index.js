@@ -1,4 +1,5 @@
 const ed25519 = require('ed25519');
+const url = require('url');
 
 function csv(str) {
     return str.split(',').map((s) => {
@@ -7,6 +8,16 @@ function csv(str) {
 }
 
 module.exports.verify = (sltoken, opts) => {
+    opts = opts || {};
+
+    if (opts.domains) {
+        if (opts.domains.constructor !== Array) {
+            opts.domains = [opts.domains];
+        }
+    } else {
+        opts.domains = [];
+    }
+
     sltoken = csv(sltoken);
 
     let message = csv(sltoken[0]);
@@ -34,10 +45,12 @@ module.exports.verify = (sltoken, opts) => {
         error = 'Invalid signature';
     }
 
-    let domains = opts.domains;
+    const domains = opts.domains.map((domain) => {
+        return url.parse(domain).host
+    });
 
-    if (domains !== provider || domains.indexOf(provider) === -1) error = 'Invalid provider';
-    if (domains !== client || domains.indexOf(client) === -1) error = 'Invalid client';
+    if (domains.indexOf(url.parse(provider).host) === -1) error = 'Invalid provider';
+    if (domains.indexOf(url.parse(client).host) === -1) error = 'Invalid client';
     if (expiration < Date.now() / 1000) error = 'Expired token';
 
     if (error) {
