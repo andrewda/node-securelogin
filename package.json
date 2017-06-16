@@ -1,0 +1,27 @@
+{
+  "name": "securelogin",
+  "version": "0.0.1",
+  "description": "A tiny module used to verify SecureLogin tokens",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/andrewda/node-securelogin.git"
+  },
+  "keywords": [
+    "securelogin",
+    "auth",
+    "authentication"
+  ],
+  "dependencies": {
+    "ed25519": "0.0.4"
+  },
+  "author": "Andrew Dassonville <dassonville.andrew@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/andrewda/node-securelogin/issues"
+  },
+  "homepage": "https://github.com/andrewda/node-securelogin#readme"
+}
