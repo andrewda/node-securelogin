@@ -7,12 +7,8 @@ function csv(str) {
     });
 }
 
-module.exports.verify = (sltoken, opts = { domains: [] }) => {
-    if (!sltoken) throw new TypeError('verify requires a SecureLogin token');
-
-    if (opts.domains.constructor !== Array) {
-        opts.domains = [opts.domains];
-    }
+const parse = (sltoken) => {
+    if (!sltoken) throw new TypeError('parse requires a SecureLogin token');
 
     sltoken = csv(sltoken);
 
@@ -21,23 +17,40 @@ module.exports.verify = (sltoken, opts = { domains: [] }) => {
     const message = csv(sltoken[0]);
     const signatures = csv(sltoken[1]);
     const authkeys = csv(sltoken[2]);
-    const email = sltoken[3];
 
-    const provider = message[0];
-    const client = message[1];
-    const scope = message[2];
-    const expiration = message[3];
+    return {
+        email: sltoken[3],
+        message: {
+            raw: sltoken[0],
+            provider: message[0],
+            client: message[1],
+            scope: message[2],
+            expiration: message[3],
+        },
+        signatures: {
+            signature: signatures[0],
+            hmac: signatures[1]
+        },
+        authkeys: {
+            public: authkeys[0],
+            secret: authkeys[1]
+        }
+    };
+};
 
-    const signature = signatures[0];
-    const hmac_signature = signatures[1];
+const verify = (sltoken, opts = { domains: [] }) => {
+    if (!sltoken) throw new TypeError('verify requires a SecureLogin token');
 
-    const pubkey = authkeys[0];
-    const secret = authkeys[1];
+    if (opts.domains.constructor !== Array) {
+        opts.domains = [opts.domains];
+    }
+
+    const parsed = parse(sltoken);
 
     let errors = [];
 
     try {
-        if (!ed25519.Verify(new Buffer(sltoken[0], 'utf8'), new Buffer(signature, 'base64'), new Buffer(pubkey, 'base64'))) {
+        if (!ed25519.Verify(new Buffer(parsed.message.raw, 'utf8'), new Buffer(parsed.signatures.signature, 'base64'), new Buffer(parsed.authkeys.public, 'base64'))) {
             errors.push('Invalid signature');
         }
     } catch(e) {
@@ -54,13 +67,15 @@ module.exports.verify = (sltoken, opts = { domains: [] }) => {
         return url.parse(domain).host;
     });
 
-    if (domains.indexOf(url.parse(provider).host) === -1 && !opts.ignoreProvider) errors.push('Invalid provider');
-    if (domains.indexOf(url.parse(client).host) === -1 && !opts.ignoreClient) errors.push('Invalid client');
-    if (expiration < Date.now() / 1000 && !opts.ignoreExpiration) errors.push('Expired token');
+    if (domains.indexOf(url.parse(parsed.message.provider).host) === -1 && !opts.ignoreProvider) errors.push('Invalid provider');
+    if (domains.indexOf(url.parse(parsed.message.client).host) === -1 && !opts.ignoreClient) errors.push('Invalid client');
+    if (parsed.message.expiration < Date.now() / 1000 && !opts.ignoreExpiration) errors.push('Expired token');
 
     if (errors.length > 0) {
         return { errors };
     } else {
-        return { provider, client, scope, expiration, email, pubkey, secret };
+        return parsed;
     }
-}
+};
+
+module.exports = { parse, verify };

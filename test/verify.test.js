@@ -7,28 +7,42 @@ describe('SecureLogin.verify', () => {
     const validToken = decodeURIComponent('http%3A%2F%2Flocalhost%3A3001%252Chttp%3A%2F%2Flocalhost%3A3001%252C%252C4651339663%2Cgjs%2BD1dTCf8FFHWmQizu7Nlt9uVm4jRhEG3J96gzktGKj5IkQcOb%2BqkJyTEBt9LY99pqqNrtKwxXNrlRyvocAA%3D%3D%252CUNKOGVd%2FodZL071ic8sGijtAuBF6Jc262nSAI4O%2BEl4%3D%2CFPS%2FonjSa0ojlSzp9zXEiot5MgZcMwXR0sAIdgJMxaE%3D%252CbruQ61utUBPay5QJ6Rity4S6AW%2Bsma4NTt%2B7udhMveM%3D%2Cexample%40email.com');
 
     const expiredTokenSuccess = {
-        client: 'http://localhost:3001',
         email: 'example@email.com',
-        expiration: '1497739033',
-        provider: 'http://localhost:3001',
-        pubkey: 'FPS/onjSa0ojlSzp9zXEiot5MgZcMwXR0sAIdgJMxaE=',
-        scope: '',
-        secret: 'bruQ61utUBPay5QJ6Rity4S6AW+sma4NTt+7udhMveM='
+        message: {
+            raw: 'http://localhost:3001,http://localhost:3001,,1497739033',
+            provider: 'http://localhost:3001',
+            client: 'http://localhost:3001',
+            scope: '',
+            expiration: '1497739033'
+        },
+        signatures: {
+            signature: 'xPuI02mctaYq1eFTeiTNr8SF23wZrzG80Uf/eJTKyQW5kg4OOVh7WFlyH+akR0i3IkU6QZUiG15T3Lu+2W43Cw==',
+            hmac: 'qQdcxrwRRIAdAdbnm+azLz4nP46BVWzI2GVFtHUdMAc='
+        },
+        authkeys: {
+            public: 'FPS/onjSa0ojlSzp9zXEiot5MgZcMwXR0sAIdgJMxaE=',
+            secret: 'bruQ61utUBPay5QJ6Rity4S6AW+sma4NTt+7udhMveM='
+        }
     };
 
     const validTokenSuccess = {
-        client: 'http://localhost:3001',
         email: 'example@email.com',
-        expiration: '4651339663', // This will fail on June 17, 2117 but that won't be my problem
-        provider: 'http://localhost:3001',
-        pubkey: 'FPS/onjSa0ojlSzp9zXEiot5MgZcMwXR0sAIdgJMxaE=',
-        scope: '',
-        secret: 'bruQ61utUBPay5QJ6Rity4S6AW+sma4NTt+7udhMveM='
+        message: {
+            raw: 'http://localhost:3001,http://localhost:3001,,4651339663',
+            provider: 'http://localhost:3001',
+            client: 'http://localhost:3001',
+            scope: '',
+            expiration: '4651339663'
+        },
+        signatures: {
+            signature: 'gjs+D1dTCf8FFHWmQizu7Nlt9uVm4jRhEG3J96gzktGKj5IkQcOb+qkJyTEBt9LY99pqqNrtKwxXNrlRyvocAA==',
+            hmac: 'UNKOGVd/odZL071ic8sGijtAuBF6Jc262nSAI4O+El4='
+        },
+        authkeys: {
+            public: 'FPS/onjSa0ojlSzp9zXEiot5MgZcMwXR0sAIdgJMxaE=',
+            secret: 'bruQ61utUBPay5QJ6Rity4S6AW+sma4NTt+7udhMveM='
+        }
     };
-
-    SecureLogin.verify(validToken, {
-        domains: 'https://localhost:3001'
-    })
 
     it('should throw if token is undefined', () => {
         expect(

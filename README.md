@@ -33,6 +33,35 @@ SecureLogin.verify(decodeURIComponent(sltoken), {
 
 ## API Reference
 
+### parse(sltoken)
+
+- `sltoken` - A SecureLogin token
+
+Parses a SecureLogin token and returns an object with the token's contents.
+
+Example return data:
+
+```javascript
+{
+    email: 'example@email.com',
+    message: {
+        raw: 'http://localhost:3001,http://localhost:3001,,4651339663',
+        provider: 'http://localhost:3001',
+        client: 'http://localhost:3001',
+        scope: '',
+        expiration: '4651339663'
+    },
+    signatures: {
+        signature: 'gjs+D1dTCf8FFHWmQizu7Nlt9uVm4jRhEG3J96gzktGKj5IkQcOb+qkJyTEBt9LY99pqqNrtKwxXNrlRyvocAA==',
+        hmac: 'UNKOGVd/odZL071ic8sGijtAuBF6Jc262nSAI4O+El4='
+    },
+    authkeys: {
+        public: 'FPS/onjSa0ojlSzp9zXEiot5MgZcMwXR0sAIdgJMxaE=',
+        secret: 'bruQ61utUBPay5QJ6Rity4S6AW+sma4NTt+7udhMveM='
+    }
+}
+```
+
 ### verify(sltoken[, options])
 
 - `sltoken` - A SecureLogin token
@@ -42,3 +71,8 @@ SecureLogin.verify(decodeURIComponent(sltoken), {
     - `ignoreProvider` - Ignore provider domain name
     - `ignoreClient` - Ignore client domain name
     - `ignoreExpiration` - Ignore the token expiration date
+
+Verifies a SecureLogin token and, if successful, returns the parsed object (see
+[`parse` method](#parse(sltoken)) above). If unsuccessful, returns an object
+with the `errors` property, an array of errors that occurred while parsing the
+token.
