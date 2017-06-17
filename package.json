@@ -4,7 +4,7 @@
   "description": "A tiny module used to verify SecureLogin tokens",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "node_modules/.bin/mocha --reporter spec --require test/bootstrap/node test/*.test.js"
   },
   "repository": {
     "type": "git",
@@ -17,6 +17,10 @@
   ],
   "dependencies": {
     "ed25519": "0.0.4"
+  },
+  "devDependencies": {
+    "chai": "^4.0.2",
+    "mocha": "^3.4.2"
   },
   "author": "Andrew Dassonville <dassonville.andrew@gmail.com>",
   "license": "MIT",

@@ -8,11 +8,15 @@ function csv(str) {
 }
 
 module.exports.verify = (sltoken, opts = { domains: [] }) => {
+    if (!sltoken) throw new TypeError('verify requires a SecureLogin token');
+
     if (opts.domains.constructor !== Array) {
         opts.domains = [opts.domains];
     }
 
     sltoken = csv(sltoken);
+
+    if (sltoken.length < 4) throw new TypeError('invalid SecureLogin token')
 
     const message = csv(sltoken[0]);
     const signatures = csv(sltoken[1]);
