@@ -46,7 +46,7 @@ module.exports.verify = (sltoken, opts) => {
     }
 
     const domains = opts.domains.map((domain) => {
-        return url.parse(domain).host
+        return url.parse(domain).host;
     });
 
     if (domains.indexOf(url.parse(provider).host) === -1) error = 'Invalid provider';
