@@ -46,6 +46,12 @@ module.exports.verify = (sltoken, opts) => {
     }
 
     const domains = opts.domains.map((domain) => {
+        // Check if domain has protocol – if not, prefix it with "http://"
+        // `url.parse` won't work on localhost:3000, but will on http://localhost:3000
+        if (domain.indexOf('http://') !== 0 && domain.indexOf('https://') !== 0) {
+            domain = 'http://' + domain;
+        }
+
         return url.parse(domain).host;
     });
 
