@@ -1,6 +1,6 @@
 {
   "name": "securelogin",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "A tiny module used to verify SecureLogin tokens",
   "main": "index.js",
   "scripts": {
