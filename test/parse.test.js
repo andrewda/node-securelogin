@@ -1,6 +1,6 @@
 const SecureLogin = require('..');
 
-describe('SecureLogin.verify', () => {
+describe('SecureLogin.parse', () => {
 
     const token1 = decodeURIComponent('http%3A%2F%2Flocalhost%3A3001%252Chttp%3A%2F%2Flocalhost%3A3001%252C%252C1497739033%2CxPuI02mctaYq1eFTeiTNr8SF23wZrzG80Uf%2FeJTKyQW5kg4OOVh7WFlyH%2BakR0i3IkU6QZUiG15T3Lu%2B2W43Cw%3D%3D%252CqQdcxrwRRIAdAdbnm%2BazLz4nP46BVWzI2GVFtHUdMAc%3D%2CFPS%2FonjSa0ojlSzp9zXEiot5MgZcMwXR0sAIdgJMxaE%3D%252CbruQ61utUBPay5QJ6Rity4S6AW%2Bsma4NTt%2B7udhMveM%3D%2Cexample%40email.com');
     const token2 = decodeURIComponent('http%3A%2F%2Flocalhost%3A3001%252Chttp%3A%2F%2Flocalhost%3A3001%252C%252C4651339663%2Cgjs%2BD1dTCf8FFHWmQizu7Nlt9uVm4jRhEG3J96gzktGKj5IkQcOb%2BqkJyTEBt9LY99pqqNrtKwxXNrlRyvocAA%3D%3D%252CUNKOGVd%2FodZL071ic8sGijtAuBF6Jc262nSAI4O%2BEl4%3D%2CFPS%2FonjSa0ojlSzp9zXEiot5MgZcMwXR0sAIdgJMxaE%3D%252CbruQ61utUBPay5QJ6Rity4S6AW%2Bsma4NTt%2B7udhMveM%3D%2Cexample%40email.com');
