@@ -17,6 +17,7 @@ const sltoken = 'https%3A%2F%2Fmy.app%252Chttps%3A%2F%2Fmy.app%2Fsecurelogin%252
 
 SecureLogin.verify(decodeURIComponent(sltoken), {
     domains: 'https://my.app/',
+    ignoreExpiration: true
 });
 
 /**
@@ -38,3 +39,6 @@ SecureLogin.verify(decodeURIComponent(sltoken), {
 - `options` - (optional) An object containing zero or more options
     - `domains` - A string or array of strings containing acceptable
     client/provider domain(s)
+    - `ignoreProvider` - Ignore provider domain name
+    - `ignoreClient` - Ignore client domain name
+    - `ignoreExpiration` - Ignore the token expiration date

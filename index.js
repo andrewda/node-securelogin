@@ -49,9 +49,9 @@ module.exports.verify = (sltoken, opts) => {
         return url.parse(domain).host;
     });
 
-    if (domains.indexOf(url.parse(provider).host) === -1) error = 'Invalid provider';
-    if (domains.indexOf(url.parse(client).host) === -1) error = 'Invalid client';
-    if (expiration < Date.now() / 1000) error = 'Expired token';
+    if (domains.indexOf(url.parse(provider).host) === -1 && !opts.ignoreProvider) error = 'Invalid provider';
+    if (domains.indexOf(url.parse(client).host) === -1 && !opts.ignoreClient) error = 'Invalid client';
+    if (expiration < Date.now() / 1000 && !opts.ignoreExpiration) error = 'Expired token';
 
     if (error) {
         return { error: error };
