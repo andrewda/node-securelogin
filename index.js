@@ -30,14 +30,14 @@ module.exports.verify = (sltoken, opts = { domains: [] }) => {
     const pubkey = authkeys[0];
     const secret = authkeys[1];
 
-    let error = null;
+    let errors = [];
 
     try {
         if (!ed25519.Verify(new Buffer(sltoken[0], 'utf8'), new Buffer(signature, 'base64'), new Buffer(pubkey, 'base64'))) {
-            error = 'Invalid signature';
+            errors.push('Invalid signature');
         }
     } catch(e) {
-        error = 'Invalid signature';
+        errors.push('Invalid signature');
     }
 
     const domains = opts.domains.map((domain) => {
@@ -50,12 +50,12 @@ module.exports.verify = (sltoken, opts = { domains: [] }) => {
         return url.parse(domain).host;
     });
 
-    if (domains.indexOf(url.parse(provider).host) === -1 && !opts.ignoreProvider) error = 'Invalid provider';
-    if (domains.indexOf(url.parse(client).host) === -1 && !opts.ignoreClient) error = 'Invalid client';
-    if (expiration < Date.now() / 1000 && !opts.ignoreExpiration) error = 'Expired token';
+    if (domains.indexOf(url.parse(provider).host) === -1 && !opts.ignoreProvider) errors.push('Invalid provider');
+    if (domains.indexOf(url.parse(client).host) === -1 && !opts.ignoreClient) errors.push('Invalid client');
+    if (expiration < Date.now() / 1000 && !opts.ignoreExpiration) errors.push('Expired token');
 
-    if (error) {
-        return { error };
+    if (errors.length > 0) {
+        return { errors };
     } else {
         return { provider, client, scope, expiration, email, pubkey, secret };
     }
