@@ -33,7 +33,7 @@ SecureLogin.verify(decodeURIComponent(sltoken), {
 
 ## API Reference
 
-### verify(sltoken, options)
+### verify(sltoken[, options])
 
 - `sltoken` - A SecureLogin token
 - `options` - (optional) An object containing zero or more options
