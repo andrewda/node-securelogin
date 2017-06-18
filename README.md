@@ -78,7 +78,7 @@ Example return data:
     - `ignoreExpiration` - Ignore the token expiration date
 
 Verifies a SecureLogin token and, if successful, returns the parsed object (see
-[`parse` method](#parse(sltoken)) above). If unsuccessful, returns an object
+[`parse` method](#parsesltoken) above). If unsuccessful, returns an object
 with the `errors` property, an array of errors that occurred while parsing the
 token.
 
