@@ -26,13 +26,19 @@ SecureLogin.verify(decodeURIComponent(sltoken), {
 });
 
 /**
- * { provider: 'https://my.app',
- *   client: 'https://my.app/securelogin',
- *   scope: '',
- *   expiration: '1496586322',
- *   email: 'homakov@gmail.com',
- *   pubkey: 'kdbjcc08YBKWdCY56lQJIi92wcGOW+KcMvbSgHN6WbU=',
- *   secret: '1uP20QU+WYvFf1KAxn3Re0ZYd2pm5vLdQhgkXTCjl44=' }
+ * { email: 'homakov@gmail.com',
+ *   message:
+ *    { raw: 'https://my.app,https://my.app/securelogin,,1496586322',
+ *      provider: 'https://my.app',
+ *      client: 'https://my.app/securelogin',
+ *      scope: '',
+ *      expiration: '1496586322' },
+ *   signatures:
+ *    { signature: '2YNnncbnq7won+13AzJJqeBRREA9CTjYq/DwuGQAGy8LaQGnuH6OE10oLxV4kgJJhflnqdu0qY8bBC08v969Cg==',
+ *      hmac: '/bf0P0dBdDcQlak07UZpR4YnzPc2qw40jCSz1NAuw+s=' },
+ *   authkeys:
+ *    { public: 'kdbjcc08YBKWdCY56lQJIi92wcGOW+KcMvbSgHN6WbU=',
+ *      secret: '1uP20QU+WYvFf1KAxn3Re0ZYd2pm5vLdQhgkXTCjl44=' } }
  */
 ```
 
