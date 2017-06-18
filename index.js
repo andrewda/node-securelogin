@@ -1,4 +1,4 @@
-const ed25519 = require('ed25519');
+const nacl = require('ecma-nacl');
 const url = require('url');
 
 function csv(str) {
@@ -50,7 +50,7 @@ const verify = (sltoken, opts = { domains: [] }) => {
     let errors = [];
 
     try {
-        if (!ed25519.Verify(new Buffer(parsed.message.raw, 'utf8'), new Buffer(parsed.signatures.signature, 'base64'), new Buffer(parsed.authkeys.public, 'base64'))) {
+        if (!nacl.signing.verify(new Buffer(parsed.signatures.signature, 'base64'), new Buffer(parsed.message.raw, 'utf8'), new Buffer(parsed.authkeys.public, 'base64'))) {
             errors.push('Invalid signature');
         }
     } catch(e) {

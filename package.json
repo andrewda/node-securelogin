@@ -16,7 +16,7 @@
     "authentication"
   ],
   "dependencies": {
-    "ed25519": "0.0.4"
+    "ecma-nacl": "^2.4.0"
   },
   "devDependencies": {
     "chai": "^4.0.2",
