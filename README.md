@@ -1,5 +1,10 @@
 # Node SecureLogin
 
+[![Travis][travis-img]][travis-url]
+[![Release][release-img]][release-url]
+[![Downloads][downloads-img]][downloads-url]
+[![License][license-img]][license-url]
+
 A tiny module used to verify SecureLogin tokens.
 
 ## Installation
@@ -76,3 +81,14 @@ Verifies a SecureLogin token and, if successful, returns the parsed object (see
 [`parse` method](#parse(sltoken)) above). If unsuccessful, returns an object
 with the `errors` property, an array of errors that occurred while parsing the
 token.
+
+<!-- Badges -->
+
+[travis-img]: https://img.shields.io/travis/andrewda/node-securelogin.svg?style=flat-square
+[travis-url]: https://travis-ci.org/andrewda/node-securelogin
+[release-img]: https://img.shields.io/npm/v/securelogin.svg?style=flat-square
+[release-url]: https://www.npmjs.com/package/securelogin
+[downloads-img]: https://img.shields.io/npm/dm/securelogin.svg?style=flat-square
+[downloads-url]: https://www.npmjs.com/package/securelogin
+[license-img]: https://img.shields.io/npm/l/securelogin.svg?style=flat-square
+[license-url]: https://github.com/andrewda/node-securelogin/blob/master/LICENSE
