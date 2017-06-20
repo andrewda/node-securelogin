@@ -67,9 +67,15 @@ const verify = (sltoken, opts = { domains: [] }) => {
         return url.parse(domain).host;
     });
 
-    if (domains.indexOf(url.parse(parsed.message.provider).host) === -1 && !opts.ignoreProvider) errors.push('Invalid provider');
-    if (domains.indexOf(url.parse(parsed.message.client).host) === -1 && !opts.ignoreClient) errors.push('Invalid client');
-    if (parsed.message.expiration < Date.now() / 1000 && !opts.ignoreExpiration) errors.push('Expired token');
+    if (domains.indexOf(url.parse(parsed.message.provider).host) === -1 &&
+        !opts.ignoreProvider) errors.push('Invalid provider');
+    if (domains.indexOf(url.parse(parsed.message.client).host) === -1 &&
+        !opts.ignoreClient) errors.push('Invalid client');
+    if (parsed.message.expiration < Date.now() / 1000 &&
+        !opts.ignoreExpiration) errors.push('Expired token');
+    if (opts.change &&
+        (parsed.message.scope.indexOf('mode=change') === -1 ||
+        parsed.message.scope.indexOf('to=') === -1)) errors.push('Mode is not \'change\'');
 
     if (errors.length > 0) {
         return { errors };
