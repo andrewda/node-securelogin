@@ -10,10 +10,10 @@ describe('SecureLogin.verify', () => {
     const expiredTokenSuccess = {
         email: 'example@email.com',
         message: {
-            raw: 'http://localhost:3001,http://localhost:3001,,1497739033',
+            _raw: 'http://localhost:3001,http://localhost:3001,,1497739033',
             provider: 'http://localhost:3001',
             client: 'http://localhost:3001',
-            scope: '',
+            scope: { _raw: '' },
             expiration: '1497739033'
         },
         signatures: {
@@ -29,10 +29,10 @@ describe('SecureLogin.verify', () => {
     const validTokenSuccess = {
         email: 'example@email.com',
         message: {
-            raw: 'http://localhost:3001,http://localhost:3001,,4651339663',
+            _raw: 'http://localhost:3001,http://localhost:3001,,4651339663',
             provider: 'http://localhost:3001',
             client: 'http://localhost:3001',
-            scope: '',
+            scope: { _raw: '' },
             expiration: '4651339663'
         },
         signatures: {

@@ -78,8 +78,8 @@ const verify = (sltoken, opts = { origins: [] }) => {
     if (parsed.message.expiration < Date.now() / 1000 &&
         !opts.ignoreExpiration) errors.push('Expired token');
     if (opts.change &&
-        (parsed.message.scope.indexOf('mode=change') === -1 ||
-        parsed.message.scope.indexOf('to=') === -1)) errors.push('Mode is not \'change\'');
+        (parsed.message.scope.mode !== 'change' ||
+        !parsed.message.scope.to)) errors.push('Mode is not \'change\'');
 
     if (errors.length > 0) {
         return { errors };
