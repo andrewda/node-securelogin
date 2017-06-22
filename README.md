@@ -28,10 +28,10 @@ SecureLogin.verify(decodeURIComponent(sltoken), {
 /**
  * { email: 'homakov@gmail.com',
  *   message:
- *    { raw: 'https://my.app,https://my.app/securelogin,,1496586322',
+ *    { _raw: 'https://my.app,https://my.app/securelogin,,1496586322',
  *      provider: 'https://my.app',
  *      client: 'https://my.app/securelogin',
- *      scope: '',
+ *      scope: { _raw: '' },
  *      expiration: '1496586322' },
  *   signatures:
  *    { signature: '2YNnncbnq7won+13AzJJqeBRREA9CTjYq/DwuGQAGy8LaQGnuH6OE10oLxV4kgJJhflnqdu0qY8bBC08v969Cg==',
@@ -56,10 +56,10 @@ Example return data:
 {
     email: 'example@email.com',
     message: {
-        raw: 'http://localhost:3001,http://localhost:3001,,4651339663',
+        _raw: 'http://localhost:3001,http://localhost:3001,,4651339663',
         provider: 'http://localhost:3001',
         client: 'http://localhost:3001',
-        scope: '',
+        scope: { _raw: '' },
         expiration: '4651339663'
     },
     signatures: {

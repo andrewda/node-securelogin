@@ -1,5 +1,6 @@
 const nacl = require('ecma-nacl');
 const url = require('url');
+const querystring = require('querystring');
 
 function csv(str) {
     return str.split(',').map((s) => {
@@ -18,13 +19,16 @@ const parse = (sltoken) => {
     const signatures = csv(sltoken[1]);
     const authkeys = csv(sltoken[2]);
 
+    const scope = querystring.parse(message[2]);
+    scope._raw = message[2];
+
     return {
         email: sltoken[3],
         message: {
-            raw: sltoken[0],
+            _raw: sltoken[0],
             provider: message[0],
             client: message[1],
-            scope: message[2],
+            scope: scope,
             expiration: message[3],
         },
         signatures: {
@@ -50,7 +54,7 @@ const verify = (sltoken, opts = { origins: [] }) => {
     let errors = [];
 
     try {
-        if (!nacl.signing.verify(new Buffer(parsed.signatures.signature, 'base64'), new Buffer(parsed.message.raw, 'utf8'), new Buffer(parsed.authkeys.public, 'base64'))) {
+        if (!nacl.signing.verify(new Buffer(parsed.signatures.signature, 'base64'), new Buffer(parsed.message._raw, 'utf8'), new Buffer(parsed.authkeys.public, 'base64'))) {
             errors.push('Invalid signature');
         }
     } catch(e) {
