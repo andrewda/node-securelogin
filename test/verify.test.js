@@ -53,55 +53,55 @@ describe('SecureLogin.verify', () => {
 
     it('should throw if token is invalid format', () => {
         expect(
-            SecureLogin.verify.bind(null, 'abc', { domains: 'http://localhost:3001' })
+            SecureLogin.verify.bind(null, 'abc', { origins: 'http://localhost:3001' })
         ).to.throw(TypeError, 'invalid SecureLogin token');
     });
 
     it('should return errors if token is invalid #1', () => {
         expect(
-            SecureLogin.verify(invalidToken, { domains: 'http://localhost:3001' })
+            SecureLogin.verify(invalidToken, { origins: 'http://localhost:3001' })
         ).to.deep.equal({ errors: [ 'Invalid signature' ] });
     });
 
     it('should return errors if token is invalid #2', () => {
         expect(
-            SecureLogin.verify(invalidToken2, { domains: 'http://localhost:3001' })
+            SecureLogin.verify(invalidToken2, { origins: 'http://localhost:3001' })
         ).to.deep.equal({ errors: [ 'Invalid signature' ] });
     });
 
     it('should return errors if token is expired', () => {
         expect(
-            SecureLogin.verify(expiredToken, { domains: 'http://localhost:3001' })
+            SecureLogin.verify(expiredToken, { origins: 'http://localhost:3001' })
         ).to.deep.equal({ errors: [ 'Expired token' ] });
     });
 
     it('should return errors if provider and/or client are incorrect', () => {
         expect(
-            SecureLogin.verify(validToken, { domains: 'https://another.app' })
+            SecureLogin.verify(validToken, { origins: 'https://another.app' })
         ).to.deep.equal({ errors: [ 'Invalid provider', 'Invalid client' ]});
     });
 
     it('should ignore expired token if asked to', () => {
         expect(
-            SecureLogin.verify(expiredToken, { domains: 'http://localhost:3001', ignoreExpiration: true })
+            SecureLogin.verify(expiredToken, { origins: 'http://localhost:3001', ignoreExpiration: true })
         ).to.deep.equal(expiredTokenSuccess);
     });
 
-    it('should accept valid token with domains as string', () => {
+    it('should accept valid token with origins as string', () => {
         expect(
-            SecureLogin.verify(validToken, { domains: 'https://localhost:3001' })
+            SecureLogin.verify(validToken, { origins: 'https://localhost:3001' })
         ).to.deep.equal(validTokenSuccess);
     });
 
-    it('should accept valid token with domains as array', () => {
+    it('should accept valid token with origins as array', () => {
         expect(
-            SecureLogin.verify(validToken, { domains: [ 'https://localhost:3001' ] })
+            SecureLogin.verify(validToken, { origins: [ 'https://localhost:3001' ] })
         ).to.deep.equal(validTokenSuccess);
     });
 
     it('should accept valid token if protocol is not provided', () => {
         expect(
-            SecureLogin.verify(validToken, { domains: 'localhost:3001' })
+            SecureLogin.verify(validToken, { origins: 'localhost:3001' })
         ).to.deep.equal(validTokenSuccess);
     });
 

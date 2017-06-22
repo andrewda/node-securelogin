@@ -38,11 +38,11 @@ const parse = (sltoken) => {
     };
 };
 
-const verify = (sltoken, opts = { domains: [] }) => {
+const verify = (sltoken, opts = { origins: [] }) => {
     if (!sltoken) throw new TypeError('verify requires a SecureLogin token');
 
-    if (opts.domains.constructor !== Array) {
-        opts.domains = [opts.domains];
+    if (opts.origins.constructor !== Array) {
+        opts.origins = [opts.origins];
     }
 
     const parsed = parse(sltoken);
@@ -57,7 +57,7 @@ const verify = (sltoken, opts = { domains: [] }) => {
         errors.push('Invalid signature');
     }
 
-    const domains = opts.domains.map((domain) => {
+    const origins = opts.origins.map((domain) => {
         // Check if domain has protocol – if not, prefix it with "http://"
         // `url.parse` won't work on localhost:3000, but will on http://localhost:3000
         if (domain.indexOf('http://') !== 0 && domain.indexOf('https://') !== 0) {
@@ -67,9 +67,9 @@ const verify = (sltoken, opts = { domains: [] }) => {
         return url.parse(domain).host;
     });
 
-    if (domains.indexOf(url.parse(parsed.message.provider).host) === -1 &&
+    if (origins.indexOf(url.parse(parsed.message.provider).host) === -1 &&
         !opts.ignoreProvider) errors.push('Invalid provider');
-    if (domains.indexOf(url.parse(parsed.message.client).host) === -1 &&
+    if (origins.indexOf(url.parse(parsed.message.client).host) === -1 &&
         !opts.ignoreClient) errors.push('Invalid client');
     if (parsed.message.expiration < Date.now() / 1000 &&
         !opts.ignoreExpiration) errors.push('Expired token');
