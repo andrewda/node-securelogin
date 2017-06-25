@@ -1,6 +1,7 @@
 # Node SecureLogin
 
 [![Travis][travis-img]][travis-url]
+[![Coveralls][coveralls-img]][coveralls-url]
 [![Release][release-img]][release-url]
 [![Downloads][downloads-img]][downloads-url]
 [![License][license-img]][license-url]
@@ -92,6 +93,8 @@ token.
 
 [travis-img]: https://img.shields.io/travis/andrewda/node-securelogin.svg?style=flat-square
 [travis-url]: https://travis-ci.org/andrewda/node-securelogin
+[coveralls-img]: https://img.shields.io/coveralls/andrewda/node-securelogin.svg?style=flat-square
+[coveralls-url]: https://coveralls.io/github/andrewda/node-securelogin
 [release-img]: https://img.shields.io/npm/v/securelogin.svg?style=flat-square
 [release-url]: https://www.npmjs.com/package/securelogin
 [downloads-img]: https://img.shields.io/npm/dm/securelogin.svg?style=flat-square
