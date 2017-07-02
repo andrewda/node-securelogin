@@ -8,6 +8,9 @@
 
 A tiny module used to verify SecureLogin tokens.
 
+For a more complete and high-level module, try using
+[passport-securelogin](https://github.com/andrewda/passport-securelogin).
+
 ## Installation
 
 ```bash
